@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Com Data Finder | Advanced Web Scraper</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="particles-js" id="particles-js"></div>
+    <div class="container">
+        <!-- Header with Logo -->
+        <header class="animated-header">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>E-Com Data Finder</h1>
+                    <p class="tagline">Advanced Web Scraping Tool</p>
+                </div>
+            </div>
+            <div class="header-decoration">
+                <div class="decoration-circle"></div>
+                <div class="decoration-circle"></div>
+                <div class="decoration-circle"></div>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- Fetch Websites Card -->
+            <section class="dashboard-card card-fetch">
+                <div class="card-header">
+                    <h2><i class="fas fa-globe-americas"></i> Fetch Websites</h2>
+                    <div class="card-actions">
+                        <button class="action-btn"><i class="fas fa-cog"></i></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-group floating-label">
+                        <select id="country" class="form-control" required>
+                            <option value="" disabled selected>Select a country</option>
+                            <option value="us">United States</option>
+                            <option value="ca">Canada</option>
+                            <option value="uk">United Kingdom</option>
+                            <option value="au">Australia</option>
+                            <option value="in">India</option>
+                            <!-- More countries can be added -->
+                        </select>
+                        <label for="country">Country</label>
+                        <div class="select-arrow">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="form-group floating-label">
+                        <input type="text" id="state-city" class="form-control" placeholder=" " required>
+                        <label for="state-city">State/City Keyword</label>
+                        <div class="input-decoration"></div>
+                    </div>
+                    <div class="form-group floating-label">
+                        <input type="text" id="industry" class="form-control" placeholder=" " required>
+                        <label for="industry">Industry Keyword</label>
+                        <div class="input-decoration"></div>
+                    </div>
+                    <div class="form-group range-group">
+                        <label for="count">Result Count: <span id="count-value">100</span></label>
+                        <input type="range" id="count" min="10" max="500" value="100" class="styled-slider">
+                    </div>
+                    <button id="fetch-websites-btn" class="btn btn-primary btn-animated">
+                        <span class="btn-icon"><i class="fas fa-search"></i></span>
+                        <span class="btn-text">Fetch Websites</span>
+                        <span class="btn-wave"></span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Filter Websites Card -->
+            <section class="dashboard-card card-filter">
+                <div class="card-header">
+                    <h2><i class="fas fa-filter"></i> Filter Websites</h2>
+                    <div class="card-actions">
+                        <button class="action-btn"><i class="fas fa-history"></i></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="domain-active" checked>
+                                <span class="slider round"></span>
+                            </label>
+                            <span class="filter-label">Domain Active</span>
+                        </div>
+                        <div class="filter-option">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="shopify-only">
+                                <span class="slider round"></span>
+                            </label>
+                            <span class="filter-label">Only Shopify</span>
+                        </div>
+                        <div class="filter-option">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="loads-within">
+                                <span class="slider round"></span>
+                            </label>
+                            <span class="filter-label">Loads in 5s</span>
+                        </div>
+                    </div>
+                    <div class="file-upload-wrapper">
+                        <label class="file-upload-label">
+                            <input type="file" id="exclude-websites-file" class="file-input" accept=".csv">
+                            <div class="upload-area">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Upload Exclusion CSV</span>
+                            </div>
+                        </label>
+                    </div>
+                    <button id="apply-filters-btn" class="btn btn-secondary btn-animated">
+                        <span class="btn-icon"><i class="fas fa-magic"></i></span>
+                        <span class="btn-text">Apply Filters</span>
+                        <span class="btn-wave"></span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Fetch Emails Card -->
+            <section class="dashboard-card card-emails">
+                <div class="card-header">
+                    <h2><i class="fas fa-envelope-open-text"></i> Fetch Email IDs</h2>
+                    <div class="card-actions">
+                        <button class="action-btn"><i class="fas fa-question-circle"></i></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="drop-zone" id="drop-area">
+                        <div class="drop-content">
+                            <i class="fas fa-file-csv"></i>
+                            <h3>Drop CSV File Here</h3>
+                            <p>or</p>
+                            <button id="browse-btn" class="btn btn-tertiary">
+                                <i class="fas fa-folder-open"></i> Browse Files
+                            </button>
+                            <input type="file" id="csv-file-input" class="file-input" accept=".csv">
+                        </div>
+                        <div class="file-info" id="file-info"></div>
+                    </div>
+                    <button id="fetch-emails-btn" class="btn btn-primary btn-animated">
+                        <span class="btn-icon"><i class="fas fa-envelope"></i></span>
+                        <span class="btn-text">Extract Emails</span>
+                        <span class="btn-wave"></span>
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Results Panel -->
+        <section class="dashboard-card card-results">
+            <div class="card-header">
+                <h2><i class="fas fa-chart-line"></i> Results</h2>
+                <div class="card-actions">
+                    <button id="export-csv-btn" class="btn btn-export">
+                        <i class="fas fa-file-export"></i> Export CSV
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="results-container">
+                    <div class="results-stats">
+                        <div class="stat-box">
+                            <div class="stat-value" id="total-results">0</div>
+                            <div class="stat-label">Total Results</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="websites-count">0</div>
+                            <div class="stat-label">Websites</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="emails-count">0</div>
+                            <div class="stat-label">Emails</div>
+                        </div>
+                    </div>
+                    <div class="results-table-container">
+                        <table id="results-table">
+                            <thead>
+                                <tr>
+                                    <th>Website/Email</th>
+                                    <th>Type</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="results-body">
+                                <tr class="empty-row">
+                                    <td colspan="3">
+                                        <div class="empty-state">
+                                            <i class="fas fa-database"></i>
+                                            <p>No results found yet</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="hidden">
+            <div class="loading-content">
+                <div class="loading-spinner">
+                    <div class="spinner-circle"></div>
+                    <div class="spinner-circle"></div>
+                    <div class="spinner-circle"></div>
+                </div>
+                <h3 class="loading-text">Processing Your Request</h3>
+                <p class="loading-subtext">This may take a few moments...</p>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Center -->
+        <div id="notification-center"></div>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="#"><i class="fas fa-book"></i> Documentation</a>
+                    <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                </div>
+                <div class="footer-copyright">
+                    © 2023 E-Com Data Finder | Powered by Gemini AI
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
