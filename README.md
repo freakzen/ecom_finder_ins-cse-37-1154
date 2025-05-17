@@ -2,7 +2,7 @@
 
 Advanced web scraping tool for e-commerce data extraction with email harvesting capabilities.
 
-![Dashboard Screenshot](.nightout\assets\img.png)
+![Dashboard Screenshot](../img.png)
 
 ## Features
 - 🌍 Fetch websites by country/industry
