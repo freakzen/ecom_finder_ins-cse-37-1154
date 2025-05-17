@@ -277,6 +277,27 @@ body {
     transition: var(--transition-fast);
 }
 
+/* Dropdown Menu Styles */
+select.form-control {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+select option {
+    background-color: #000;
+    color: white;
+    padding: 10px;
+}
+
+/* Unified select option:checked for all browsers */
+select option:checked {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+}
+
 .form-control:focus {
     outline: none;
     border-color: var(--primary);
