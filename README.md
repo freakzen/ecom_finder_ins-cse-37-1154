@@ -19,7 +19,7 @@ Advanced web scraping tool for e-commerce data extraction with email harvesting 
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/ecom-data-finder.git
+   git clone https://github.com/freakzen/ecom-data-finder.git
    ```
 2. Open `index.html` in your browser.
 
