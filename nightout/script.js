@@ -1,4 +1,3 @@
-const GEMINI_API_KEY = "AIzaSyCpbhb7PgKZNOIZatSdFmNvY_Jfvv2vqXI"; 
 const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
 // Global variables
@@ -9,6 +8,7 @@ let emailsData = [];
 let lastRequestTime = 0;
 const REQUEST_DELAY = 2000; // 2 seconds between requests
 const responseCache = {};
+const API_KEY_STORAGE_KEY = 'ecom-data-finder-gemini-api-key';
 
 // DOM Elements
 document.addEventListener('DOMContentLoaded', function () {
@@ -415,6 +415,11 @@ Return only the email addresses, one per line, with no additional text. Only inc
     }
 
     async function callGeminiAPI(prompt) {
+        const apiKey = getGeminiApiKey();
+        if (!apiKey) {
+            throw new Error('Gemini API key is required. Add your own key when prompted.');
+        }
+
         const now = Date.now();
         const timeSinceLastRequest = now - lastRequestTime;
         if (timeSinceLastRequest < REQUEST_DELAY) {
@@ -425,7 +430,7 @@ Return only the email addresses, one per line, with no additional text. Only inc
         if (responseCache[cacheKey]) return responseCache[cacheKey];
 
         lastRequestTime = Date.now();
-        const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+        const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -448,6 +453,25 @@ Return only the email addresses, one per line, with no additional text. Only inc
         const result = data.candidates[0].content.parts[0].text;
         responseCache[cacheKey] = result;
         return result;
+    }
+
+    function getGeminiApiKey() {
+        const savedKey = localStorage.getItem(API_KEY_STORAGE_KEY);
+        if (savedKey) {
+            return savedKey;
+        }
+
+        const enteredKey = window.prompt('Enter your Gemini API key. It will be stored only in this browser.');
+        if (!enteredKey) {
+            return '';
+        }
+
+        const normalizedKey = enteredKey.trim();
+        if (normalizedKey) {
+            localStorage.setItem(API_KEY_STORAGE_KEY, normalizedKey);
+        }
+
+        return normalizedKey;
     }
 
     function readCSVFile(file) {
